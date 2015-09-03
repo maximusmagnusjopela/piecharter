@@ -30,10 +30,30 @@ def main():
             default='chart.png'
             )
 
+    parser.add_argument(
+            '-H',
+            '--height',
+            help='height of the chart (px)',
+            type=int,
+            default=181
+            )
+
+    parser.add_argument(
+            '-L',
+            '--length',
+            help='lenght of the chart (px)',
+            type=int,
+            default=181
+            )
+
     args = parser.parse_args()
     print(args)
 
     return
+
+def piechart():
+    """docstring for piechart"""
+
 
 if __name__ == '__main__':
     main()
