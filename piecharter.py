@@ -35,7 +35,7 @@ def main():
             '--height',
             help='height of the chart (px)',
             type=int,
-            default=181
+            default=320
             )
 
     parser.add_argument(
@@ -43,16 +43,43 @@ def main():
             '--length',
             help='lenght of the chart (px)',
             type=int,
-            default=181
+            default=320
             )
 
+    parser.add_argument(
+            '-F',
+            '--font-size',
+            help='size of the label font',
+            default=12
+            )
+
+
     args = parser.parse_args()
-    print(args)
+    piechart(args.labels,
+             args.sizes,
+             args.height,
+             args.length,
+             args.font_size,
+             args.filename)
 
     return
 
-def piechart():
-    """docstring for piechart"""
+def piechart(labels, sizes, height, length, font_size, filename):
+    """ creates and saves a piechart to filename"""
+
+    my_dpi = 96.0
+    plt.figure(figsize=(height/my_dpi, length/my_dpi), dpi=my_dpi)
+    _, texts = plt.pie(sizes,labels=labels, labeldistance=0.65, colors=['b','g','r','k','c'])
+
+    for t in texts:
+        t.set_color('white')
+        t.set_fontsize(font_size)
+        t.set_horizontalalignment('center')
+
+    plt.axis('equal')
+    plt.savefig(filename,bbox_inches='tight')
+
+    return
 
 
 if __name__ == '__main__':
