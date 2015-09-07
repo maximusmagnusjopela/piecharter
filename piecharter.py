@@ -35,7 +35,7 @@ def main():
             '--height',
             help='height of the chart (px)',
             type=int,
-            default=320
+            default=400
             )
 
     parser.add_argument(
@@ -43,7 +43,7 @@ def main():
             '--length',
             help='lenght of the chart (px)',
             type=int,
-            default=320
+            default=400
             )
 
     parser.add_argument(
@@ -53,6 +53,14 @@ def main():
             default=12
             )
 
+    parser.add_argument(
+            '-S',
+            '--start-angle',
+            help='start angle for the pie chart',
+            type=float,
+            default=10
+            )
+
 
     args = parser.parse_args()
     piechart(args.labels,
@@ -60,21 +68,23 @@ def main():
              args.height,
              args.length,
              args.font_size,
+             args.start_angle,
              args.filename)
 
     return
 
-def piechart(labels, sizes, height, length, font_size, filename):
+def piechart(labels, sizes, height, length, font_size, start_angle, filename):
     """ creates and saves a piechart to filename"""
 
     my_dpi = 96.0
     plt.figure(figsize=(height/my_dpi, length/my_dpi), dpi=my_dpi)
-    _, texts = plt.pie(sizes,labels=labels, labeldistance=0.65, colors=['b','g','r','k','c'])
+    _, texts = plt.pie(sizes,labels=labels, labeldistance=0.55, colors=['b','g','r','y','c'], startangle=start_angle)
 
     for t in texts:
         t.set_color('white')
         t.set_fontsize(font_size)
         t.set_horizontalalignment('center')
+        t.set_weight('bold')
 
     plt.axis('equal')
     plt.savefig(filename,bbox_inches='tight')
